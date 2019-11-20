@@ -27,3 +27,130 @@ or hitting walls.
  Karel should not run into a wall if it builds a house that extends into
  that final corner.
 */
+import "turns";
+
+function backOne(){
+	turnAround();
+	move();
+	turnRight();
+}
+
+function putThree(){
+	repeat(3){
+		putBeeper();
+		move();
+	}
+}
+
+function columnThree(){
+	turnLeft();
+	move();
+	turnLeft();
+	putThree();
+}
+
+function columnTwo(){
+	repeat(2){
+		move();
+		turnRight();
+	}
+	putThree();
+}
+
+function columnOne(){
+	repeat(2){
+		move();
+		putBeeper();
+	}
+}
+
+function buildLeft(){
+	columnOne();
+	repeat(2){
+		move();
+		turnLeft();
+	}
+	putThree();
+	turnRight();
+	move();
+	turnRight();
+	putThree();
+}
+
+function buildRight(){
+	columnOne();
+	columnTwo();
+	columnThree();
+}
+
+
+function findLocation(){
+	while(noBeepersPresent()){
+		move();
+	}
+	move();
+	if(frontIsClear()){
+		buildHouseR();
+	}
+	buildHouseL();
+}
+
+
+function buildHouseR(){
+	if(frontIsClear()){
+		backOne();
+		buildRight();
+	}
+}
+
+function buildHouseL(){
+	if(frontIsBlocked()){
+		backOne();
+		buildLeft();
+	}
+}
+
+function returnToBase(){
+	turnAround();
+	while(frontIsClear()){
+		move();
+	}
+	turnLeft();
+	move();
+}
+
+function Solve(){
+	repeat(3){
+		findLocation();
+		returnToBase();
+	}
+	while(frontIsClear()){
+		move();
+	}
+	turnAround();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
